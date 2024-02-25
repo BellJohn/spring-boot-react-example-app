@@ -3,13 +3,12 @@ package com.bellj.springBootDemoServiceAcceptanceTests;
 import com.bellj.springBootDemoServiceAcceptanceTests.testUtilities.DataSource;
 import com.bellj.springBootDemoServiceAcceptanceTests.testUtilities.DatabaseUtils;
 import io.cucumber.java.BeforeAll;
-import io.cucumber.java.en.*;
-
+import io.cucumber.java.en.Given;
+import io.cucumber.java.en.Then;
+import io.cucumber.java.en.When;
 import io.restassured.RestAssured;
-import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
-import org.junit.jupiter.api.Test;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.equalTo;
@@ -29,7 +28,7 @@ public class StepDefinitions {
     private static Response response;
 
     @BeforeAll
-    public static void setup(){
+    public static void setup() {
         RestAssured.baseURI = API_URL;
         RestAssured.port = API_PORT;
 
@@ -37,6 +36,7 @@ public class StepDefinitions {
         DatabaseUtils.wipeAllTableData(dataSource);
         response = null;
     }
+
     @Given("no clients are registered in the database")
     public void noClientsExist() {
         DataSource dataSource = new DataSource(DATABASE_URL, DRIVER, DATABASE_USERNAME, DATABASE_PASSWORD);
@@ -46,15 +46,15 @@ public class StepDefinitions {
     @Given("{int} clients are registered in the database")
     public void registerClients(int num) {
         DataSource dataSource = new DataSource(DATABASE_URL, DRIVER, DATABASE_USERNAME, DATABASE_PASSWORD);
-        for(int i = 0; i < num; i++) {
+        for (int i = 0; i < num; i++) {
             DatabaseUtils.addClient(dataSource);
         }
         DatabaseUtils.readClients(dataSource);
     }
 
     @When("a GET request is sent to {string}")
-    public void sendGetRequest(String url){
-        String fullURL = String.format("%s:%d%s",RestAssured.baseURI, RestAssured.port, url);
+    public void sendGetRequest(String url) {
+        String fullURL = String.format("%s:%d%s", RestAssured.baseURI, RestAssured.port, url);
         response = RestAssured.get(fullURL);
     }
 
@@ -62,7 +62,7 @@ public class StepDefinitions {
     public void sendPostRequestWithBody(String url, String body) {
         RequestSpecification request = RestAssured.given().body(body)
                 .contentType("application/json");
-        String fullURL = String.format("%s:%d%s",RestAssured.baseURI, RestAssured.port, url);
+        String fullURL = String.format("%s:%d%s", RestAssured.baseURI, RestAssured.port, url);
         response = request.post(fullURL);
     }
 
@@ -82,15 +82,16 @@ public class StepDefinitions {
         System.out.println("Sending to " + fullURL);
         response = request.delete(fullURL);
     }
+
     @Then("the responseCode is {int}")
-    public void responseCodeMatches(Integer expected){
+    public void responseCodeMatches(Integer expected) {
         assertThat(response.statusCode(), equalTo(expected));
     }
+
     @Then("the responseBody matches {string}")
-    public void responseBodyMatches(String expected){
+    public void responseBodyMatches(String expected) {
         assertThat(response.body().print(), equalToIgnoringCase(expected));
     }
-
 
 
 }

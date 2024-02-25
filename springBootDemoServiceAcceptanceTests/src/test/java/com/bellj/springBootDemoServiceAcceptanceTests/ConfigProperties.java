@@ -2,19 +2,20 @@ package com.bellj.springBootDemoServiceAcceptanceTests;
 
 import java.io.IOException;
 import java.io.InputStream;
-import java.nio.file.*;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Properties;
 
 public class ConfigProperties {
 
-    private static String databaseUrl;
-    private static String databaseUsername;
-    private static String databasePassword;
-    private static String driver;
-    private static String apiUrl;
+    private static final String databaseUrl;
+    private static final String databaseUsername;
+    private static final String databasePassword;
+    private static final String driver;
+    private static final String apiUrl;
 
-    private static int databasePort;
-    private static int apiPort;
+    private static final int databasePort;
+    private static final int apiPort;
 
 
     static {

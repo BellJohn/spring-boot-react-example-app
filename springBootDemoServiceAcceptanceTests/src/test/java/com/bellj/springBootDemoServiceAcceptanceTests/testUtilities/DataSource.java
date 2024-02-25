@@ -12,7 +12,7 @@ public class DataSource {
     private final String username;
     private final String password;
 
-    public DataSource(String URL, String driver, String username, String password){
+    public DataSource(String URL, String driver, String username, String password) {
         this.URL = URL;
         this.driver = driver;
         this.username = username;
@@ -25,6 +25,6 @@ public class DataSource {
         Class.forName(driver);
 
         //STEP 2: Open a connection
-        return DriverManager.getConnection(URL,username,password);
+        return DriverManager.getConnection(URL, username, password);
     }
 }
