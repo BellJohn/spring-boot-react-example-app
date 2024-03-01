@@ -13,6 +13,8 @@ demonstrates unit testing best practices.
 Dependencies are mocked out and the scope of the test is restricted to just the contract provided by the Controller
 class without consideration to the Spring wrapper.
 
+These don't rely on any active database connection.
+
 ## Integration Tests
 
 The Integration Test code
@@ -21,6 +23,8 @@ demonstrates Integration testing with respect to the wrapping Spring container a
 source backing the JPA repository.
 In this situation we don't care about the particular technology we will use for data persistence in production too much
 and can make do with an in memory H2 database operating in MySQL mode.
+
+These rely on a database connection defined by [application-test.properties](springBootDemoService/src/test/resources/application-test.properties)
 
 ## Acceptance BDD Tests
 
@@ -33,12 +37,16 @@ expensive (especially the way I've implemented it).
 These tests prove there is no difference in behaviour when the fullstack is put in place and the contract is provided
 correctly.
 
+These rely on a database connection defined by [application.properties](springBootDemoService/src/main/resources/application.properties)
+
 ## UI Unit Tests
 
 The files under [frontend - src](frontend/src) which match the pattern ```*.test.js``` are similar in function to the
 Unit Tests under the service itself. (I'm not familiar with React, so they are very lightweight).
 These prove the correct rendering of the content in the same way that any single unit of code abides by its function.
 While further up the stack, these are still unit tests, not acceptance tests.
+
+These don't rely on any database connection.
 
 ## Missing End to End Acceptance Tests
 
