@@ -24,7 +24,8 @@ source backing the JPA repository.
 In this situation we don't care about the particular technology we will use for data persistence in production too much
 and can make do with an in memory H2 database operating in MySQL mode.
 
-These rely on a database connection defined by [application-test.properties](springBootDemoService/src/test/resources/application-test.properties)
+These rely on a database connection defined by [application-test.properties](springBootDemoService/src/test/resources/application-test.properties).
+This should just work out-of-the-box as an H2 database config has been provided. Spring will handle the table creation etc.
 
 ## Acceptance BDD Tests
 
@@ -37,7 +38,8 @@ expensive (especially the way I've implemented it).
 These tests prove there is no difference in behaviour when the fullstack is put in place and the contract is provided
 correctly.
 
-These rely on a database connection defined by [application.properties](springBootDemoService/src/main/resources/application.properties)
+These rely on a database connection defined by [application.properties](springBootDemoService/src/main/resources/application.properties).
+This will need an active database such as one deployed in AWS used during the demo or a local instance of something like MySQL or H2 running in a separate process. It won't be able to rely on the in memory H2 used in the Integration Tests.
 
 ## UI Unit Tests
 
